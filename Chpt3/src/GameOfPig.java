@@ -52,8 +52,7 @@ public class GameOfPig {
 			turnScore += roll;
 			System.out.println("You have rolled a " + roll + ".");
 			System.out.println("Turn score total is " + turnScore + ".");
-			System.out.println("Would you like to roll again or hold?");
-			System.out.println("Enter a 1 for roll again, a 2 for hold.");
+			System.out.println("Enter a 1 to roll again, a 2 to hold.");
 			int choice = keyboard.nextInt();
 			while (choice == 1) 
 			{
@@ -69,8 +68,7 @@ public class GameOfPig {
 					turnScore += roll;
 					System.out.println("You have rolled a " + roll + ".");
 					System.out.println("Turn score total is " + turnScore + ".");
-					System.out.println("Would you like to roll again or hold?");
-					System.out.println("Enter a 1 for roll again, a 2 for hold.");
+					System.out.println("Enter a 1 to roll again, a 2 to hold.");
 					choice = keyboard.nextInt();
 				}
 			}
