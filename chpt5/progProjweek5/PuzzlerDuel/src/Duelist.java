@@ -1,4 +1,10 @@
-
+/**
+ * Constructs objects of type Duelist.  Stores a name, accuracy and their
+ * life status.  Contains a method for a Duelist to shoot at another Duelist.
+ * 
+ * @author Courtney
+ *
+ */
 public class Duelist {
 	private String name;
 	private double accuracy;
@@ -45,10 +51,10 @@ public class Duelist {
 	public boolean isAlive() {
 		return stillAlive;
 	}
+	
 	public void setStillAlive(boolean stillAlive) {
 		this.stillAlive = stillAlive;
 	}
-	
 	
 	/**
 	 * Performs the action of a duel shot and uses the shooter's accuracy to
@@ -60,10 +66,7 @@ public class Duelist {
 	public void ShootAtTarget(Duelist target) {
 		double randomNumber = Math.random();
 		if (randomNumber <= accuracy) {
-//			System.out.println(this.getName() + " accuracy: " + this.getAccuracy());
-//			System.out.println(randomNumber);  
 			target.setStillAlive(false);
-			//System.out.println(target.getName() + " is dead.");
 		}
 	}	
 }
