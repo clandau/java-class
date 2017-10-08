@@ -1,4 +1,9 @@
-
+/**
+ * Class for an order of 1-3 pizzas with a number, and up to three Pizzas. 
+ * Class invariant: A PizzaOrder always has a number of pizzas and it must
+ * be between 1 and 3, although they may all be null. 
+ * A default order may be created with 1 default Pizza order attached. 
+ */
 public class PizzaOrder {
 	private int numberOfPizzas;
 	private Pizza pizzaOne, pizzaTwo, pizzaThree;
@@ -11,16 +16,6 @@ public class PizzaOrder {
 		numberOfPizzas = 1;
 		pizzaOne = new Pizza();
 	}
-	
-//	public PizzaOrder(int number) {
-//		if (numberOk(number)) {
-//			numberOfPizzas = number;
-//		}
-//		else {
-//			System.out.println("Incorrect entry. Enter between 1 and 3 pizzas for an order.");
-//			System.exit(0);
-//		}
-//	}
 	
 	/**
 	 * constructors that allow the creation of a pizza order directly
@@ -73,8 +68,10 @@ public class PizzaOrder {
 	}
 	
 	public Pizza getPizzaOne() {
-		return new Pizza(pizzaOne.getSize(), pizzaOne.getCheeseToppings(), pizzaOne.getPepperoniToppings(), 
-				pizzaOne.getHamToppings());
+		if(pizzaOne != null) {
+			return pizzaOne;
+		}
+		else return null;
 	}
 	
 	public void setPizzaTwo(Pizza pizza) {
@@ -87,8 +84,10 @@ public class PizzaOrder {
 	}
 	
 	public Pizza getPizzaTwo() {
-			return new Pizza(pizzaTwo.getSize(), pizzaTwo.getCheeseToppings(), pizzaTwo.getPepperoniToppings(), 
-				pizzaTwo.getHamToppings());
+		if(pizzaTwo != null) {
+			return pizzaTwo;
+		}
+		else return null;
 	}
 	
 	public void setPizzaThree(Pizza pizza) {
@@ -101,8 +100,10 @@ public class PizzaOrder {
 	}
 	
 	public Pizza getPizzaThree() {
-		return new Pizza(pizzaThree.getSize(), pizzaThree.getCheeseToppings(), pizzaThree.getPepperoniToppings(), 
-				pizzaThree.getHamToppings());
+		if(pizzaThree != null) {
+			return pizzaThree;
+		}
+		else return null;
 	}
 	
 	public String toString() {

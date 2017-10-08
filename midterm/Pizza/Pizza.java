@@ -1,4 +1,8 @@
-
+/**
+ * Class for a pizza with a size, number of cheese, ham and pepperoni toppings.
+ * Class invariant: A Pizza always has a size, default is large. A pizza cannot have more
+ * than five of any topping. 
+ */
 public class Pizza {
 	private String size;
 	private int cheeseToppings;
@@ -16,10 +20,36 @@ public class Pizza {
 	}
 	
 	public Pizza(String size, int cheese, int pepperoni, int ham) {
-		this.size = size;
-		this.cheeseToppings = cheese;
-		this.pepperoniToppings = pepperoni;
+		size = size.toLowerCase();
+		if (size.equals("small") || size.equals("medium") 
+				|| size.equals("large")) {
+			this.size = size;
+		}
+		else {
+			System.out.println("Error, incorrect size entry");
+			System.exit(0);
+		}
+		if(validNumber(cheese)) {
+			this.cheeseToppings = cheese;
+		}
+		else {
+			System.out.println("Error, incorrect number entry");
+			System.exit(0);
+		}
+		if(validNumber(pepperoni)) {
+			this.pepperoniToppings = pepperoni;
+		}
+		else {
+			System.out.println("Error, incorrect number entry");
+			System.exit(0);
+		}
+		if(validNumber(ham)) {
 		this.hamToppings = ham;
+		}
+		else {
+			System.out.println("Error, incorrect number entry");
+			System.exit(0);
+		}
 	}
 	
 	public String getSize() {
@@ -27,9 +57,10 @@ public class Pizza {
 	}
 	
 	public void setSize(String size) {
-		if (size.toLowerCase() == "small" || size.toLowerCase() == "medium" 
-				|| size.toLowerCase() == "large") {
-			this.size = size.toLowerCase();
+		size = size.toLowerCase();
+		if (size.equals("small") || size.equals("medium") 
+				|| size.equals("large")) {
+			this.size = size;
 		}
 		else {
 			System.out.println("Error, incorrect size entry");
@@ -42,7 +73,7 @@ public class Pizza {
 	}
 	
 	public void setCheeseToppings(int number) {
-		if (number >= 0) {
+		if (validNumber(number)) {
 			this.cheeseToppings = number;
 		}
 		else {
@@ -56,7 +87,7 @@ public class Pizza {
 	}
 	
 	public void setPepperoniToppings(int number) {
-		if (number >= 0) {
+		if (validNumber(number)) {
 			this.pepperoniToppings = number;
 		}
 		else {
@@ -70,7 +101,7 @@ public class Pizza {
 	}
 	
 	public void setHamToppings(int number) {
-		if (number >= 0) {
+		if (validNumber(number)){
 			this.hamToppings = number;
 		}
 		else {
@@ -124,5 +155,16 @@ public class Pizza {
 		this.cheeseToppings = object.getCheeseToppings();
 		this.pepperoniToppings = object.getPepperoniToppings();
 		this.hamToppings = object.getHamToppings();
+	}
+	
+	/**
+	 * helper function to determine if the number entered is valid, meaning
+	 * non-negative and not more than 5.
+	 * @param number
+	 * @return boolean true if the number entered is greater than zero and less than 5.
+	 */
+	public boolean validNumber(int number) {
+		if (number < 0 || number > 5) return false;
+		return true;
 	}
 }
