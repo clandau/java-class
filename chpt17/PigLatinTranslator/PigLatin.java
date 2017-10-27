@@ -17,7 +17,7 @@ public class PigLatin extends JFrame implements ActionListener {
 	private JTextArea input;
 	private JTextArea output;
 	private JButton translateButton;
-	
+	private JButton clearButton;
 
 	public static void main(String[] args) {
 		PigLatin translator = new PigLatin();
@@ -37,6 +37,9 @@ public class PigLatin extends JFrame implements ActionListener {
 		translateButton = new JButton("Click to translate");
 		translateButton.addActionListener(this);
 		textPanel.add(translateButton);
+		clearButton = new JButton("Clear text");
+		clearButton.addActionListener(this);
+		textPanel.add(clearButton);
 		output = new JTextArea("", NUMBER_OF_ROWS, NUMBER_OF_DIGITS);
 		textPanel.add(output);
 		
@@ -45,6 +48,11 @@ public class PigLatin extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == clearButton) {
+			input.setText(" ");
+			output.setText(" ");
+		}
+		else {
 		String textEntered = input.getText();
 		String finishedLine = "";
 		Scanner scan = new Scanner(textEntered);
@@ -53,6 +61,7 @@ public class PigLatin extends JFrame implements ActionListener {
 		}	
 		output.setText(finishedLine);
 		scan.close();
+		}
 	}
 	
 	/**
