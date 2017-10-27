@@ -8,6 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
+/**
+ * a simple pig Latin translator GUI in swing. 
+ * Allows a user to enter text and click a button which 
+ * translates it to Pig Latin. 
+ * @author Courtney
+ */
+
 public class PigLatin extends JFrame implements ActionListener {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 400;
@@ -43,8 +50,7 @@ public class PigLatin extends JFrame implements ActionListener {
 		output = new JTextArea("", NUMBER_OF_ROWS, NUMBER_OF_DIGITS);
 		textPanel.add(output);
 		
-		add(textPanel);
-		
+		add(textPanel);	
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -52,7 +58,7 @@ public class PigLatin extends JFrame implements ActionListener {
 			input.setText(" ");
 			output.setText(" ");
 		}
-		else {
+		else if (e.getSource() == translateButton){
 		String textEntered = input.getText();
 		String finishedLine = "";
 		Scanner scan = new Scanner(textEntered);
@@ -65,24 +71,20 @@ public class PigLatin extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * performs the string manipulation to translate the entered
-	 * text into Pig Latin
+	 * Takes a String word of text and returns a string of that
+	 * word translated into Pig Latin. 
 	 * @param text
 	 */
 	public String translate(String text) {
-		String output = "";
 		char firstLetter = text.charAt(0);
 		if (firstLetter == 'a' || firstLetter == 'A' || firstLetter == 'e' || 
 				firstLetter == 'E' || firstLetter == 'i' || firstLetter == 'I' || 
 						firstLetter == 'o' || firstLetter == 'O' || firstLetter == 'u' || 
 						firstLetter == 'u') {
-			output = text + "way";
-			return output;
+			return text + "way";
 		}
 		else {
-			output = text.substring(1) + Character.toLowerCase(firstLetter) + "ay";
-			return output;
+			return text.substring(1) + Character.toLowerCase(firstLetter) + "ay";
 		}
 	}
-	
 }
