@@ -2,7 +2,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,7 @@ public class PigLatin extends JFrame implements ActionListener {
 	public static final int HEIGHT = 400;
 	public static final int NUMBER_OF_ROWS = 3;
 	public static final int NUMBER_OF_DIGITS = 60;
+	public static final Color pigPink = Color.decode("#FFB6C1");
 	
 	private JTextArea input;
 	private JTextArea output;
@@ -38,14 +41,24 @@ public class PigLatin extends JFrame implements ActionListener {
 		setLayout(new BorderLayout());
 		
 		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new FlowLayout());
+		textPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
+		textPanel.setBackground(pigPink);
 		input = new JTextArea("Enter \ntext here", NUMBER_OF_ROWS, NUMBER_OF_DIGITS);
 		textPanel.add(input);
 		translateButton = new JButton("Click to translate");
+		
 		translateButton.addActionListener(this);
 		textPanel.add(translateButton);
 		clearButton = new JButton("Clear text");
-		clearButton.addActionListener(this);
+		
+		//anonymous function for clear button action listener
+		clearButton.addActionListener( 
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						input.setText(" ");
+						output.setText(" ");
+					}
+				});
 		textPanel.add(clearButton);
 		output = new JTextArea("", NUMBER_OF_ROWS, NUMBER_OF_DIGITS);
 		textPanel.add(output);
@@ -54,11 +67,6 @@ public class PigLatin extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == clearButton) {
-			input.setText(" ");
-			output.setText(" ");
-		}
-		else if (e.getSource() == translateButton){
 		String textEntered = input.getText();
 		String finishedLine = "";
 		Scanner scan = new Scanner(textEntered);
@@ -67,7 +75,6 @@ public class PigLatin extends JFrame implements ActionListener {
 		}	
 		output.setText(finishedLine);
 		scan.close();
-		}
 	}
 	
 	/**
