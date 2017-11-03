@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
@@ -32,6 +34,7 @@ public class MouseDrawDemo extends JFrame implements MouseListener {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addMouseListener(this);
+		addWindowListener(new RedrawOnDeiconification());
 	}
 
 	public static void main(String[] args) {
@@ -41,7 +44,27 @@ public class MouseDrawDemo extends JFrame implements MouseListener {
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(Color.CYAN);
+		g.setColor(Color.YELLOW);
 		g.fillOval(xCoord-xOffset, yCoord-yOffset, 6, 6);	
+	}
+	
+	/**
+	 * this class implements the window listener to ensure that the window
+	 * is correctly redrawn after the window was minimized
+	 *
+	 */
+	private class RedrawOnDeiconification implements WindowListener {
+		public void windowOpened(WindowEvent e) {}
+		public void windowClosing(WindowEvent e) {}
+		public void windowClosed(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		
+		//overridden method to ensure the window is redrawn
+		public void windowDeiconified(WindowEvent e) {
+			repaint();
+		}
+		public void windowActivated(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		
 	}
 }
