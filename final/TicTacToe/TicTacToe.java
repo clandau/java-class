@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Implements a simple 3x3 tic-tac-toe game. Two players alternate 
+ * clicking buttons to make their moves. A player wins if he fills in an entire
+ * row, column, or diagonal.  
+ * @author Courtney Landau
+ *
+ */
 public class TicTacToe extends JFrame implements ActionListener {
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = 300;
@@ -51,8 +59,8 @@ public class TicTacToe extends JFrame implements ActionListener {
 		instructionPanel.setLayout(new FlowLayout());
 		JPanel formatNorthPanel = new JPanel();
 		formatNorthPanel.setBorder(new EmptyBorder(10,10,10,10));
-		//add stuff to instruction Panel here
 		instructions.setText("New Game | Turn: Player 1");
+		instructions.setFont(new Font("Ariel", Font.PLAIN, 16));
 		instructionPanel.add(instructions);
 		formatNorthPanel.add(instructionPanel);
 		add(formatNorthPanel, BorderLayout.NORTH);
@@ -61,11 +69,13 @@ public class TicTacToe extends JFrame implements ActionListener {
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(3, 3, 0, 0));
 		JPanel formatCenterPanel = new JPanel();
-		//add buttons here
+		
+		//add buttons
 		for (int i=0; i < 9; i++) {
 			button[i] = new JButton();
 			button[i].putClientProperty("index", i);
 			button[i].setPreferredSize(new Dimension(50, 50));
+			button[i].setFont(new Font("Arial", Font.PLAIN, 40));
 			button[i].addActionListener(this);
 			buttonPanel.add(button[i]);
 		}
@@ -102,9 +112,9 @@ public class TicTacToe extends JFrame implements ActionListener {
 	/**
 	 * paint method to place text and graphics on screen
 	 */
-	public void paint(Graphics g) {
-		super.paint(g);
-	}
+//	public void paint(Graphics g) {
+//		super.paint(g);
+//	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(gameInPlay) {
@@ -116,7 +126,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 					button[index].setText("X");
 					incrementScore(index);
 					if (checkWin()) {
-						instructions.setText("Player 1 wins");
+						instructions.setText("Player 1 wins!");
 						gameInPlay = false;
 					}
 					else if(moves == button.length) {
@@ -132,11 +142,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 					button[index].setText("O");
 					incrementScore(index);
 					if(checkWin()) {
-						instructions.setText("Player 2 wins");
-						gameInPlay = false;
-					}
-					else if(moves == button.length) {
-						System.out.println("game is a draw");
+						instructions.setText("Player 2 wins!");
 						gameInPlay = false;
 					}
 					else {
@@ -149,8 +155,11 @@ public class TicTacToe extends JFrame implements ActionListener {
 	}
 		
 	/**
-	 * function used to increment score array to help 
-	 * determine winner. updates score tally for each player
+	 * Each row, column and diagonal of the game board is represented
+	 * in each scores array for each player.  This function contains the logic
+	 * to determine which rows, columns, and/or diagonals to be incremented
+	 * based on the location that was selected for the move. It increments
+	 * the score inside each player's own scores array. 
 	 */
 	private void incrementScore(int index) {
 		//if first row, increment first row
@@ -204,7 +213,9 @@ public class TicTacToe extends JFrame implements ActionListener {
 	
 	/**
 	 * method to check if move resulted in a win. returns true if 
-	 * that move has won the game.
+	 * that move has won the game. It works by checking the scores array
+	 * of the player who moved to see if any of the rows, columns, or diagonals
+	 * are completed by one player. if so, it returns true. 
 	 */
 	private boolean checkWin() {
 		if(player == 1) {
