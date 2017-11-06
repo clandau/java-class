@@ -2,7 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +29,11 @@ public class TicTacToe extends JFrame implements ActionListener {
 	private JLabel instructions = new JLabel();
 	private JButton[] button = new JButton[9];
 	private JButton resetButton;
-	
-	private int moves = 0;
+	private Font instructionsFont = new Font("Ariel", Font.PLAIN, 20);
+	private Font gameButtonFont = new Font("Arial", Font.PLAIN, 40);
+	private Font resetButtonFont = new Font("Ariel", Font.PLAIN, 14);
+
+	private int moves;
 	private boolean gameInPlay = false;
 	private int player = 1;
 	//arrays to hold player's move count to help determine a winner
@@ -44,12 +46,9 @@ public class TicTacToe extends JFrame implements ActionListener {
 	}
 	
 	public TicTacToe() {
-		for (int i=0; i<8; i++) {
-			playerOneScore[i] = 0;
-			playerTwoScore[i] = 0;
-		}
 		setTitle("Tic Tac Toe Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		moves = 0;
 		setSize(WIDTH, HEIGHT);
 		setLayout(new BorderLayout());
 		
@@ -60,7 +59,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 		JPanel formatNorthPanel = new JPanel();
 		formatNorthPanel.setBorder(new EmptyBorder(10,10,10,10));
 		instructions.setText("New Game | Turn: Player 1");
-		instructions.setFont(new Font("Ariel", Font.PLAIN, 16));
+		instructions.setFont(instructionsFont);
 		instructionPanel.add(instructions);
 		formatNorthPanel.add(instructionPanel);
 		add(formatNorthPanel, BorderLayout.NORTH);
@@ -75,7 +74,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 			button[i] = new JButton();
 			button[i].putClientProperty("index", i);
 			button[i].setPreferredSize(new Dimension(50, 50));
-			button[i].setFont(new Font("Arial", Font.PLAIN, 40));
+			button[i].setFont(gameButtonFont);
 			button[i].addActionListener(this);
 			buttonPanel.add(button[i]);
 		}
@@ -84,6 +83,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 		
 		resetButtonPanel = new JPanel();
 		resetButton = new JButton("Reset game");
+		resetButton.setFont(resetButtonFont);
 		resetButton.addActionListener( 
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -100,7 +100,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 						player = 1;
 						moves = 0;
 						gameInPlay = true;
-						instructions.setText("New game | Turn: Player 1");
+						instructions.setText("New Game | Turn: Player 1");
 					}
 				});
 		resetButtonPanel.add(resetButton);
@@ -108,13 +108,6 @@ public class TicTacToe extends JFrame implements ActionListener {
 		
 		gameInPlay = true;
 	}
-	
-	/**
-	 * paint method to place text and graphics on screen
-	 */
-//	public void paint(Graphics g) {
-//		super.paint(g);
-//	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(gameInPlay) {
